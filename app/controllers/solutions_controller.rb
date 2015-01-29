@@ -12,7 +12,7 @@ class SolutionsController < ApplicationController
       number = issue[:number]
       status = issue[:state] == "closed" ? :closed : :assigned
 
-      Rails.logger "Received issue hook: #{repo}##{number} - #{status}"
+      Rails.logger.info "Received issue hook: #{repo}##{number} - #{status}"
 
       Solution.where(
         number: issue[:number],
