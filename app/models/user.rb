@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   has_many :solutions
 
+  serialize :github_data, JSON
+
   scope :with_github_access, -> { where "'github_access_token' IS NOT NULL" }
 
   before_create do |user|

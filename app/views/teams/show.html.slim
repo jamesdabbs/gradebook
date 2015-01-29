@@ -14,6 +14,9 @@ table.table.table-striped.table-condensed
       th
       - @assignments.each do |a|
         th= link_to a.title, a
+      th= link_to new_assignment_path, class: 'btn btn-success'
+        = icon :plus
+        '  Assignment
   tbody
     - @members.each do |m|
       tr
@@ -22,3 +25,4 @@ table.table.table-striped.table-condensed
           td
             - if solution = @solutions[ [a.id, m.id] ]
               = render partial: 'partials/solution_status', locals: { solution: solution, assignment: a }
+        td
