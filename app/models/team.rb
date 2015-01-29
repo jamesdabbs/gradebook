@@ -44,7 +44,7 @@ class Team < ActiveRecord::Base
     "#{organization}/#{name}" if organization.present? && name.present?
   end
 
-  def fulll_qualified_issues_repo
+  def fully_qualified_issues_repo
     "#{organization}/#{issues_repo}"
   end
 
