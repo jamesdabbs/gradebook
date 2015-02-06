@@ -1,12 +1,18 @@
-h1
-  = @team.name
-  ' 
-  small= @team.organization
+- fluid_layout!
 
-.btn-group
-  = link_to 'Shuffle', team_path(@team, shuffle: true), class: 'btn btn-default'
-  = link_to 'Check', check_team_path(@team), class: 'btn btn-default', method: :post
-  = link_to 'Sync Members', sync_team_path(@team), class: 'btn btn-default', method: :post
+h1
+  small= @team.organization
+  ' 
+  = @team.name
+
+  .btn-group
+    = link_to team_path(@team, shuffle: true), class: 'btn btn-default', title: 'Shuffle'
+      = icon :sort
+    = link_to sync_team_path(@team), class: 'btn btn-default', method: :post, title: 'Sync with Github' do
+      = icon :refresh
+    = link_to new_assignment_path, class: 'btn btn-success', title: 'New Assignment'
+      = icon :plus
+
 
 table.table.table-striped.table-condensed
   thead
@@ -14,15 +20,11 @@ table.table.table-striped.table-condensed
       th
       - @assignments.each do |a|
         th= link_to a.title, a
-      th= link_to new_assignment_path, class: 'btn btn-success'
-        = icon :plus
-        '  Assignment
   tbody
     - @members.each do |m|
       tr
-        td= link_to m.name, m.github_url
+        td= link_to m.name, m
         - @assignments.each do |a|
           td
             - if solution = @solutions[ [a.id, m.id] ]
               = render partial: 'partials/solution_status', locals: { solution: solution, assignment: a }
-        td

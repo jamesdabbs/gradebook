@@ -8,6 +8,7 @@ gem 'uglifier',     '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'slim-rails'
 gem 'redcarpet'
+gem 'github-markup', require: 'github/markup'
 gem 'pg'
 
 gem 'jquery-rails'

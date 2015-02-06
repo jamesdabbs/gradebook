@@ -17,6 +17,14 @@ module ApplicationHelper
     end
   end
 
+  def fluid_layout!
+    @fluid_layout = true
+  end
+
+  def markdown text
+    GitHub::Markup.render('README.md', text).html_safe
+  end
+
   def icon name
     "<i class='glyphicon glyphicon-#{name}'></i>".html_safe
   end

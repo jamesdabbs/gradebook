@@ -40,7 +40,7 @@ html lang="en"
                 ' Log in
 
 
-    .container
+    div class=(@fluid_layout ? "container-fluid" : "container")
       .flash
         - flash.each do |name, msg|
           div class="alert alert-#{flash_class name}"

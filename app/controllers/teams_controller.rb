@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find params[:id]
 
-    @members = @team.members.to_a
+    @members = @team.members.reject &:admin?
     @members.shuffle! if params[:shuffle]
 
     @solutions = Solution.where(user: @team.members).
@@ -36,13 +36,9 @@ class TeamsController < ApplicationController
   end
 
   def sync
-    Team.find(params[:id]).sync! octoclient
-    redirect_to :back
-  end
-
-  def check
     team = Team.find params[:id]
-    team.assignments.find_each { |a| a.check! octoclient }
+    team.sync! octoclient
+    team.check_assignments! octoclient
     redirect_to :back
   end
 

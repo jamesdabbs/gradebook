@@ -17,12 +17,13 @@ Rails.application.routes.draw do
 
   resources :teams, only: [:index, :show, :new, :create] do
     member do
-      get :shuffle # For picking a random student / teams
+      get  :shuffle # For picking a random student / teams
       post :activate
       post :sync
-      post :check
     end
   end
+
+  resources :users, only: [:show]
 
   get  '/user/access_token' => 'github_access_token#edit'
   post '/user/access_token' => 'github_access_token#update'

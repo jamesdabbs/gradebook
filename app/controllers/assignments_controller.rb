@@ -9,6 +9,7 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment = Assignment.find params[:id]
+    @solutions = @assignment.solutions.includes(:user).reject { |s| s.user.admin? }
   end
 
   def new

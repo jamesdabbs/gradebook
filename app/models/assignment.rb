@@ -21,7 +21,7 @@ class Assignment < ActiveRecord::Base
   def sync_from_gist! octoclient
     name, file = octoclient.gist(gist_id).files.first
     self.body  = file.content
-    self.title = name.to_s.gsub(/\.md$/, '').gsub('_', ' ').capitalize
+    self.title = name.to_s.gsub(/\.md$/, '').gsub('_', ' ').titleize
   rescue Octokit::NotFound => e
     self.body = nil
   end
@@ -30,12 +30,8 @@ class Assignment < ActiveRecord::Base
     "_Due on #{ApplicationHelper.format_datetime due_at}_\n#{body}"
   end
 
-  def markdown
-    @_markdown ||= $markdown.render(body).html_safe
-  end
-
   def check! octoclient
-    solutions.find_each { |s| s.check! octoclient }
+    solutions.find_each { |s| s.sync! octoclient }
     update_attribute :checked_at, Time.now
   end
 

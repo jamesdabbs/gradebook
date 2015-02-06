@@ -14,9 +14,9 @@ h1
           th User
           th Status
       tbody
-        - @assignment.solutions.each do |solution|
+        - @solutions.each do |solution|
           tr
             td= link_to solution.user.name, solution.user.github_url
             td= render partial: 'partials/solution_status', locals: { solution: solution, assignment: @assignment }
   .col-md-6.well
-    = @assignment.markdown
+    = markdown @assignment.body

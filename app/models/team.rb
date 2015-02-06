@@ -1,9 +1,11 @@
 class Team < ActiveRecord::Base
+  belongs_to :admin, class_name: 'User'
+
   has_many :memberships, class_name: 'TeamMembership', dependent: :destroy
   has_many :members, through: :memberships, source: :user
   has_many :assignments
 
-  validates_presence_of :organization, :name, :issues_repo
+  validates_presence_of :admin, :organization, :name, :issues_repo
   validates_uniqueness_of :name, scope: :organization
 
   validate :found_on_github
@@ -83,5 +85,9 @@ class Team < ActiveRecord::Base
         solution.status = :assigned
       end
     end
+  end
+
+  def check_assignments! octoclient
+    assignments.find_each { |a| a.check! octoclient }
   end
 end

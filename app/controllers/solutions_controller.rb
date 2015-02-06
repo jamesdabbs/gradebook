@@ -14,13 +14,10 @@ class SolutionsController < ApplicationController
 
       Rails.logger.info "Received issue hook: #{repo}##{number} - #{status}"
 
-      Solution.where(
+      solution = Solution.where(
         number: issue[:number],
         repo:   params[:repository][:full_name]
-      ).update_all(
-        status:       status,
-        completed_at: issue[:closed_at]
-      )
+      ).first.try :sync!
     end
 
     head :ok

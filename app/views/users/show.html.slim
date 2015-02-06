@@ -1,0 +1,7 @@
+h1
+  = @user.name
+  ' 
+  small= link_to @user.github_username, @user.github_url
+
+- @solutions.each do |solution|
+  = render partial: 'partials/solution_detail', locals: { solution: solution }

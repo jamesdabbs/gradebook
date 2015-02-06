@@ -1,7 +1,9 @@
-= link_to solution.html_url do
-  - if solution.complete?
-    = icon :ok
-    ' 
-    = time_relative_to_due_at assignment.due_at, solution.completed_at
+= link_to solution.issue_url do
+  - if solution.reviewed?
+    .label.label-success
+      = icon :ok
+  - elsif solution.closed?
+    .label.label-warning
+      = icon 'new-window'
   - else
     = icon :pencil
