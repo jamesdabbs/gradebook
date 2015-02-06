@@ -58,7 +58,7 @@ class Team < ActiveRecord::Base
       secret: ENV.fetch('GITHUB_WEBHOOK_SECRET'),
       content_type: 'json'
     }, {
-      events: ['issues'],
+      events: ['issues', 'issue_comment'],
       active: true
     }
   end
@@ -92,7 +92,6 @@ class Team < ActiveRecord::Base
         )
         solution.number = issue.number
         solution.repo   = fully_qualified_issues_repo
-        solution.status = :assigned
       end
     end
   end
