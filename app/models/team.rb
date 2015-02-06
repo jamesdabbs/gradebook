@@ -63,8 +63,18 @@ class Team < ActiveRecord::Base
     }
   end
 
-  def sync! octoclient
-    octoclient.team_members(team_id).each do |member|
+  def sync! octoclient=nil
+    octoclient ||= admin.octoclient
+    remote_members = octoclient.team_members team_id
+
+    # Delete local members (but not their users)
+    current = Set.new remote_members.map &:login
+    memberships.includes(:user).each do |ms|
+      ms.delete unless current.include? ms.user.github_username
+    end
+
+    # Add new remote members
+    remote_members.each do |member|
       user = User.where(github_username: member.login).first_or_create! do |u|
         gh_user = octoclient.user member.login
         u.name  = gh_user.name || gh_user.login

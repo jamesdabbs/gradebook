@@ -20,6 +20,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new create_params
+    @team.admin = current_user
     @team.fetch_from_github! octoclient
     if @team.save
       @team.sync! octoclient
