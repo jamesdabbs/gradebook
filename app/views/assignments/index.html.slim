@@ -8,6 +8,7 @@ table.table.table-striped
       th
       th Due
       th= icon :pencil
+      th= icon 'new-window'
       th= icon :ok
       th
   tbody
@@ -16,5 +17,6 @@ table.table.table-striped
         td= link_to a.title, a
         td= format_datetime a.due_at
         td= a.solutions.incomplete.count
-        td= a.solutions.complete.count
+        td= a.solutions.needing_review.count
+        td= a.solutions.reviewed.count
         td= render partial: 'assign_to_active_team_btn', locals: { assignment: a }

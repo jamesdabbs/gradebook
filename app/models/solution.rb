@@ -8,7 +8,10 @@ class Solution < ActiveRecord::Base
   validates :number, presence: true, uniqueness: { scope: :repo }
 
   scope :incomplete, -> { where "completed_at IS NULL" }
-  scope :complete, -> { where "completed_at IS NOT NULL" }
+  # Ugh. FIXME.
+  scope :needing_review, -> {
+    where(reviewed: nil).where "completed_at IS NOT NULL" }
+  scope :reviewed, -> { where reviewed: true }
 
   def closed?
     completed_at.present?
