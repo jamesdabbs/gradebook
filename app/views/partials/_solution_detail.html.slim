@@ -1,9 +1,10 @@
 h2
   = solution.assignment.title
+  - if solution.solution_url
+    ' 
+    small= github_link solution.solution_url, solution.solution_url
   ' 
   small= render partial: 'partials/solution_status', locals: { solution: solution }
-- if solution.solution_url
-  = link_to solution.solution_url, solution.solution_url
 .well
   - solution.comments.order(created_at: :desc).each do |c|
     strong= c.user.name

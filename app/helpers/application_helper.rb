@@ -25,6 +25,12 @@ module ApplicationHelper
     GitHub::Markup.render('README.md', text).html_safe
   end
 
+  def github_link title, *args
+    title = title.sub /^https?:\/\/github.com\//, ''
+    title = title.sub /\.git$/, ''
+    link_to title, *args
+  end
+
   def icon name
     "<i class='glyphicon glyphicon-#{name}'></i>".html_safe
   end

@@ -15,6 +15,7 @@ table.table.table-striped
         td
           = link_to t.title, t
           - if t == current_user.active_team
+            ' 
             .label.label-success Active
         td= t.assignments.count
         td= t.members.count

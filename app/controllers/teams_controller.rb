@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find params[:id]
 
-    @members = @team.members.students
+    @members = @team.members.students.to_a
     @members.shuffle! if params[:shuffle]
 
     @solutions = Solution.where(user: @team.members).
