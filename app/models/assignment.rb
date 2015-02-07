@@ -7,11 +7,6 @@ class Assignment < ActiveRecord::Base
 
   default_scope -> { order due_at: :asc }
 
-  after_initialize do
-    tomorrow = 1.day.from_now
-    self.due_at ||= DateTime.new tomorrow.year, tomorrow.month, tomorrow.day, 9, 0, 0, "EST"
-  end
-
   validate :found_gist_body
   def found_gist_body
     errors.add :gist_id, "not found" if body.nil?
@@ -27,7 +22,8 @@ class Assignment < ActiveRecord::Base
   end
 
   def as_issue
-    "_Due on #{ApplicationHelper.format_datetime due_at}_\n#{body}"
+    zone = team.admin.time_zone
+    "_Due on #{ApplicationHelper.format_datetime due_at, zone}_\n#{body}"
   end
 
   def check! octoclient

@@ -10,12 +10,8 @@ class User < ActiveRecord::Base
 
   serialize :github_data, JSON
 
-  scope :with_github_access, -> { where "'github_access_token' IS NOT NULL" }
-  scope :admin, -> { where admin: true }
-
-  before_create do |user|
-    user.email = "#{user.github_username}@github.com" unless user.email.present?
-  end
+  scope :admins,   -> { where admin: true  }
+  scope :students, -> { where admin: false }
 
   def name
     super || github_username

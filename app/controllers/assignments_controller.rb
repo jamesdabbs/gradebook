@@ -14,6 +14,7 @@ class AssignmentsController < ApplicationController
 
   def new
     @assignment = Assignment.new
+    @assignment.due_at = tomorrow_at_nine_for current_user.time_zone
   end
 
   def create
@@ -56,5 +57,10 @@ class AssignmentsController < ApplicationController
 
   def create_params
     params.require(:assignment).permit :gist_id, :due_at
+  end
+
+  def tomorrow_at_nine_for tz
+    tm = 1.day.from_now
+    DateTime.new tm.year, tm.month, tm.day, 9, 0, 0, tz
   end
 end

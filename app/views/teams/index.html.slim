@@ -9,17 +9,13 @@ table.table.table-striped
       th Assignments
       th Members
       th
-      th
   tbody
     - @teams.each do |t|
       tr
-        td= link_to t.title, t
+        td
+          = link_to t.title, t
+          - if t == current_user.active_team
+            .label.label-success Active
         td= t.assignments.count
         td= t.members.count
-        td
-          - if t == current_user.active_team
-            a.btn.btn-success
-              = icon :ok
-          - else
-            = link_to 'Activate', activate_team_path(t), class: 'btn btn-default', method: :post
         td= link_to 'Sync', sync_team_path(t), class: 'btn btn-default', method: :post

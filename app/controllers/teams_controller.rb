@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find params[:id]
 
-    @members = @team.members.reject &:admin?
+    @members = @team.members.students
     @members.shuffle! if params[:shuffle]
 
     @solutions = Solution.where(user: @team.members).
@@ -29,11 +29,6 @@ class TeamsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def activate
-    current_user.update_attribute :active_team_id, params[:id]
-    redirect_to :back
   end
 
   def sync

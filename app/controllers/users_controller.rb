@@ -5,4 +5,23 @@ class UsersController < ApplicationController
       includes(:assignment, comments: :user).
       order("assignments.due_at desc")
   end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update update_params
+      redirect_to :back, notice: "Account updated"
+    else
+      render :edit
+    end
+  end
+
+private
+
+  def update_params
+    params.require(:user).permit(:time_zone, :active_team_id)
+  end
 end

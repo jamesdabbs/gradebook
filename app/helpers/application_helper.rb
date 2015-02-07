@@ -1,17 +1,17 @@
 module ApplicationHelper
-  def self.format_datetime dt
-    # TODO: make this more flexible
-    dt.in_time_zone("EST").strftime "%b %d @ %I:%M%P"
+  def self.format_datetime dt, zone
+    dt.in_time_zone(zone).strftime "%b %d @ %I:%M%P"
   end
 
-  def format_datetime dt
-    # :shipit:
-    ApplicationHelper.format_datetime dt
+  def format_datetime dt, zone=nil
+    zone ||= current_user.time_zone
+    ApplicationHelper.format_datetime dt, zone
   end
 
-  def time_relative_to_due_at due_at, submitted
+  def time_relative_to_due_at due_at, submitted, zone=nil
+    zone ||= current_user.time_zone
     if due_at - 1.day < submitted && submitted <= due_at
-      submitted.in_time_zone("EST").strftime "%I:%M%P"
+      submitted.in_time_zone(zone).strftime "%I:%M%P"
     else
       format_datetime submitted
     end

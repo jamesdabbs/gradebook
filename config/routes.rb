@@ -1,4 +1,6 @@
-Rails.application.routes.default_url_options[:host] = 'greatbook.herokuapp.com'
+if host = ENV["HOST_URL"]
+  Rails.application.routes.default_url_options[:host] = host
+end
 
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
@@ -18,15 +20,16 @@ Rails.application.routes.draw do
   resources :teams, only: [:index, :show, :new, :create] do
     member do
       get  :shuffle # For picking a random student / teams
-      post :activate
       post :sync
     end
   end
 
   resources :users, only: [:show]
-
-  get  '/user/access_token' => 'github_access_token#edit'
-  post '/user/access_token' => 'github_access_token#update'
+  resource :user, only: [:edit] do
+    # Obnoxiously, the default form for to update does the wrong thing
+    #   so we need to manually reverse this
+    patch :update, as: :update
+  end
 
   post '/hooks/issues' => 'solutions#receive_hook', as: :receive_solutions_hook
 

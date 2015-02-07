@@ -1,0 +1,17 @@
+h1
+  = @user.name
+  ' 
+  small= @user.github_username
+
+= form_for @user, url: update_user_path(@user), method: :patch do |f|
+  = render partial: 'partials/form_errors', locals: { object: @user }
+
+  .form-group
+    = f.label :time_zone
+    = f.select :time_zone, ActiveSupport::TimeZone.us_zones.map { |z| [z, z.name]} , {}, class: 'form-control'
+
+  .form-group
+    = f.label :active_team
+    = f.select :active_team_id, Team.all.map { |t| [t.title, t.id] }, {}, class: 'form-control'
+
+  button.btn.btn-primary Save

@@ -30,8 +30,13 @@ html lang="en"
           - if current_user
             - if t = current_user.active_team
               li= link_to t.title, t
+
             li
-              a= current_user.github_username
+              -if current_user.admin?
+                = link_to current_user.github_username, edit_user_path
+              - else
+                a= current_user.github_username
+
             li= link_to "Log out", destroy_user_session_path, method: :delete
           - else
             li

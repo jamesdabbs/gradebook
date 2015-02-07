@@ -1,9 +1,0 @@
-.alert.alert-warning
-  ' You must provide a 
-  a(href="https://github.com/blog/1509-personal-api-tokens") personal API access token
-
-
-= form_tag user_access_token_path
-  .form-group
-    input.form-control(type='password' name='access_token' placeholder='Github Access Token' value=current_user.github_access_token)
-  button.btn.btn-primary Save
