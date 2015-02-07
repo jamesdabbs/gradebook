@@ -3,7 +3,7 @@ class AssignmentsController < ApplicationController
     @assignments = if params[:all]
       Assignment.all
     else
-      Assignment.where team: current_user.active_team
+      Assignment.where course: current_user.active_course
     end
   end
 
@@ -19,7 +19,7 @@ class AssignmentsController < ApplicationController
 
   def create
     @assignment = Assignment.new create_params
-    @assignment.team = current_user.active_team
+    @assignment.course = current_user.active_course
     @assignment.sync_from_gist! octoclient
     if @assignment.save
       redirect_to @assignment, success: 'Assignment created'
@@ -44,10 +44,10 @@ class AssignmentsController < ApplicationController
 
   def assign
     assignment = Assignment.find params[:id]
-    team = if params[:team_id]
-      Team.find params[:team_id]
+    course = if params[:course_id]
+      Course.find params[:course_id]
     else
-      current_user.active_team
+      current_user.active_course
     end
     team.assign! octoclient, assignment
     redirect_to :back, success: 'Assigned issues'

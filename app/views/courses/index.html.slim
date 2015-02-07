@@ -1,0 +1,22 @@
+= link_to new_course_path, class: 'btn btn-success'
+  = icon :plus
+  '  Course
+
+table.table.table-striped
+  thead
+    tr
+      th
+      th Assignments
+      th Members
+      th
+  tbody
+    - @courses.each do |c|
+      tr
+        td
+          = link_to c.title, c
+          - if c == current_user.active_course
+            ' 
+            .label.label-success Active
+        td= c.assignments.count
+        td= c.members.count
+        td= link_to 'Sync', sync_course_path(c), class: 'btn btn-default', method: :post

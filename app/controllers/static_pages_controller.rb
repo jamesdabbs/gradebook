@@ -4,10 +4,10 @@ class StaticPagesController < ApplicationController
 
   def root
     if current_user
-      if current_user.active_team
-        redirect_to current_user.active_team
+      if current_user.active_course
+        redirect_to current_user.active_course
       else
-        redirect_to teams_path
+        redirect_to courses_path
       end
     end
   end

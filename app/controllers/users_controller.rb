@@ -22,6 +22,6 @@ class UsersController < ApplicationController
 private
 
   def update_params
-    params.require(:user).permit(:time_zone, :active_team_id)
+    params.require(:user).permit(:time_zone, :active_course_id)
   end
 end

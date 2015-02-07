@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150207192214) do
+ActiveRecord::Schema.define(version: 20150207195435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20150207192214) do
     t.datetime "checked_at"
     t.string   "body",       default: "", null: false
     t.string   "gist_id"
-    t.integer  "team_id"
+    t.integer  "course_id"
   end
 
-  add_index "assignments", ["team_id"], name: "index_assignments_on_team_id", using: :btree
+  add_index "assignments", ["course_id"], name: "index_assignments_on_course_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "solution_id", null: false
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150207192214) do
 
   create_table "courses", force: :cascade do |t|
     t.string  "organization"
-    t.string  "name"
+    t.string  "team_name"
     t.integer "organization_id"
     t.integer "team_id"
     t.string  "issues_repo"
@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 20150207192214) do
   end
 
   create_table "team_memberships", force: :cascade do |t|
-    t.integer "team_id", null: false
-    t.integer "user_id", null: false
+    t.integer "course_id", null: false
+    t.integer "user_id",   null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150207192214) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "github_username"
-    t.integer  "active_team_id"
+    t.integer  "active_course_id"
     t.string   "github_access_token"
     t.boolean  "admin",               default: false
     t.text     "github_data"

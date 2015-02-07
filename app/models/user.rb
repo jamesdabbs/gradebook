@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates :github_username, presence: true, uniqueness: true
 
   has_many :memberships, class_name: 'TeamMembership'
-  has_many :teams, through: :memberships
+  has_many :courses, through: :memberships
 
   has_many :solutions
 
@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
     "https://github.com/#{github_username}"
   end
 
-  def active_team
-    Team.find active_team_id if active_team_id
+  def active_course
+    Course.find active_course_id if active_course_id
   end
 
   def octoclient

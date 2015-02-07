@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :teams, only: [:index, :show, :new, :create] do
+  resources :courses, only: [:index, :show, :new, :create] do
     member do
       get  :shuffle # For picking a random student / teams
       post :sync

@@ -1,17 +1,17 @@
 - fluid_layout!
 
-- unless @team == current_user.active_team
+- unless @course == current_user.active_course
   h1
-    = @team.name
+    = @course.team_name
     ' 
-    small= @team.organization
+    small= @course.organization
 
 
 table.table.table-striped.table-condensed
   thead
     tr
       th
-        = link_to team_path(@team, shuffle: true), title: 'Shuffle'
+        = link_to course_path(@course, shuffle: true), title: 'Shuffle'
           = icon :sort
       - @assignments.each do |a|
         th= link_to a.title, a
