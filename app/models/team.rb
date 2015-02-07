@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+  self.table_name = "courses"
+
   belongs_to :admin, class_name: 'User'
 
   has_many :memberships, class_name: 'TeamMembership', dependent: :destroy
