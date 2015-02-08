@@ -46,7 +46,7 @@ class Solution < ActiveRecord::Base
   end
 
   def admin_comments
-    comments.where user: User.admin
+    comments.where user: User.admins
   end
 
   def store_solution_url!
