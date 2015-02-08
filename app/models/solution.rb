@@ -59,7 +59,7 @@ class Solution < ActiveRecord::Base
   # Sync should be safe to run on each issue state change
   #   (and idempotent, assuming no updates on Github)
   def sync! octoclient=nil
-    octoclient ||= assignment.team.admin.octoclient
+    octoclient ||= assignment.course.admin.octoclient
 
     pull_comments! octoclient
     store_solution_url!
