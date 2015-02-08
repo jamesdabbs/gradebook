@@ -17,6 +17,10 @@ module ApplicationHelper
     end
   end
 
+  def active_course
+    current_user.try :active_course
+  end
+
   def fluid_layout!
     @fluid_layout = true
   end

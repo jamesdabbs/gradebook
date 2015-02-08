@@ -1,7 +1,7 @@
 class TeamMembership < ActiveRecord::Base
-  belongs_to :team
+  belongs_to :course
   belongs_to :user
 
-  validates :team, presence: true
-  validates :user, presence: true, uniqueness: { scope: :team }
+  validates :course, presence: true
+  validates :user, presence: true, uniqueness: { scope: :course }
 end

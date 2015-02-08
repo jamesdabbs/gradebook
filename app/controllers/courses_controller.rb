@@ -19,12 +19,17 @@ class CoursesController < ApplicationController
   end
 
   def create
+    gh = GithubFetcher.new octoclient
     @course = Course.new create_params
     @course.admin = current_user
-    @course.fetch_from_github! octoclient
+    gh.fetch_course_data @course
     if @course.save
-      @course.sync! octoclient
-      @course.create_issue_tracking_webhook! octoclient if Rails.env.production?
+      gh.sync_course @course
+      gh.create_issue_tracking_webhook if Rails.env.production?
+      FeedbackPeriod.create_for! @course
+      unless current_user.active_course
+        current_user.update active_course_id: @course.id
+      end
       redirect_to @course, success: 'Course created'
     else
       render :new
@@ -41,6 +46,6 @@ class CoursesController < ApplicationController
   private
 
   def create_params
-    params.require(:course).permit :organization, :name, :issues_repo
+    params.require(:course).permit :organization, :team_name, :issues_repo, :start_date
   end
 end

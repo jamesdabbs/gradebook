@@ -1,0 +1,17 @@
+table.table.table-striped
+  thead
+    tr
+      th
+      - @periods.each do |p|
+        th= p.week_range
+  tbody
+    - @members.each do |m|
+      tr
+        td= m.name
+        - @periods.each do |p|
+          td
+            - if f = @feedbacks[ [m.id, p.id] ]
+              = raise "FIXME: feedback display"
+            - else
+              = link_to new_course_feedback_path(@course, user: m.id, period: p.id), class: 'btn btn-default btn-sm' do
+                = icon :plus

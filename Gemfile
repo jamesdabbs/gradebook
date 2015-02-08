@@ -26,10 +26,11 @@ gem 'figaro'
 gem 'octokit'
 
 group :development, :test do
+  gem 'bullet'
   gem 'pry-rails'
+  gem 'rspec-rails'
   gem 'quiet_assets'
   gem 'spring'
-  gem 'web-console', '~> 2.0'
 end
 
 group :production do

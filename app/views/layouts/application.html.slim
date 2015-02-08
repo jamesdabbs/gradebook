@@ -24,12 +24,14 @@ html lang="en"
 
         ul.nav.navbar-nav
           li= link_to "Assignments", assignments_path
+          - if active_course
+            li= link_to "Feedback", course_feedbacks_path(active_course)
           li= link_to "Courses", courses_path
 
         ul.nav.navbar-nav.navbar-right
           - if current_user
-            - if t = current_user.active_course
-              li= link_to t.title, t
+            - if active_course
+              li= link_to active_course.title, active_course
 
             li
               -if current_user.admin?

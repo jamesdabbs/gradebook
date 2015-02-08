@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get  :shuffle # For picking a random student / teams
       post :sync
     end
+
+    resources :feedbacks, only: [:index, :new, :create]
   end
 
   resources :users, only: [:show]

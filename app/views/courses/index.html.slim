@@ -14,7 +14,7 @@ table.table.table-striped
       tr
         td
           = link_to c.title, c
-          - if c == current_user.active_course
+          - if c == active_course
             ' 
             .label.label-success Active
         td= c.assignments.count

@@ -1,0 +1,12 @@
+= form_for course do |f|
+  = render partial: 'partials/form_errors', locals: { object: course }
+
+  .form-group
+    = f.date_field :start_date, class: 'form-control'
+  .form-group
+    = f.text_field :organization, placeholder: 'Organization', class: 'form-control'
+  .form-group
+    = f.text_field :team_name, placeholder: 'Team name', class: 'form-control'
+  .form-group
+    = f.text_field :issues_repo, placeholder: 'Repo for issues', class: 'form-control'
+  button.btn.btn-primary Save

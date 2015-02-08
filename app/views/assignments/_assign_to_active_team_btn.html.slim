@@ -1,4 +1,4 @@
-- if current_user.active_course
+- if active_course
   = link_to assign_assignment_path(assignment), class: 'btn btn-default', method: :post
     ' Assign 
-    small to #{current_user.active_course.team_name}
+    small to #{active_course.team_name}
