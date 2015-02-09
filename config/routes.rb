@@ -23,7 +23,9 @@ Rails.application.routes.draw do
       post :sync
     end
 
-    resources :feedbacks, only: [:index, :new, :create]
+    resources :feedbacks, path: 'feedback', only: [:index, :create] do
+      resource :comment, controller: 'feedback_comments', only: [:new, :create, :edit, :update]
+    end
   end
 
   resources :users, only: [:show]

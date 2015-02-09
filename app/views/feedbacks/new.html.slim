@@ -1,16 +1,1 @@
-h1
-  = @user.name
-  ' 
-  small= link_to @user.github_username, @user.github_url
-
-.row
-  .col-lg-6
-    table.table.table-condensed
-      tr
-        td Weeks
-        td= @period.week_range
-
-  .col-lg-6
-    - @assignments.each do |a|
-      - if s = @solutions[a.id]
-        = render partial: 'partials/solution_detail', locals: { solution: s }
+= render layout: 'frame' do

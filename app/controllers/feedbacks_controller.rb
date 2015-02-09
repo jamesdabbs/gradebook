@@ -11,19 +11,18 @@ class FeedbacksController < ApplicationController
       end
   end
 
-  def new
-    @user = User.find params[:user]
-    @period = FeedbackPeriod.find params[:period]
-    @assignments = @period.assignments
-    @solutions = @user.solutions.
-      where(assignment: @assignments).
-      includes(:assignment).
-      map { |s| [s.assignment_id, s] }.to_h
+  def create
+    feedback = @course.feedbacks.create! create_params
+    redirect_to new_course_feedback_comment(@course, feedback)
   end
 
 private
 
   def set_course!
     @course = Course.find params[:course_id]
+  end
+
+  def create_params
+    params.permit(:user_id, :period_id)
   end
 end

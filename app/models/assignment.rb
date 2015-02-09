@@ -22,7 +22,7 @@ class Assignment < ActiveRecord::Base
   end
 
   def as_issue
-    zone = team.admin.time_zone
+    zone = course.admin.time_zone
     "_Due on #{ApplicationHelper.format_datetime due_at, zone}_\n#{body}"
   end
 

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :courses, through: :memberships
 
   has_many :solutions
+  has_many :feedbacks
 
   serialize :github_data, JSON
 
