@@ -49,7 +49,7 @@ class AssignmentsController < ApplicationController
     else
       current_user.active_course
     end
-    team.assign! octoclient, assignment
+    course.assign! octoclient, assignment
     redirect_to :back, success: 'Assigned issues'
   end
 
